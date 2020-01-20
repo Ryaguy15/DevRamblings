@@ -1,11 +1,11 @@
-# README
+# Dev Ramblings ![build status](https://travis-ci.com/Ryaguy15/DevRamblings.svg?branch=master)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A small blogging website
 
 Things you may want to cover:
 
 * Ruby version
+2.6.5
 
 * System dependencies
 
