@@ -8,9 +8,9 @@ require File.expand_path('../config/environment', __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
-
 require 'database_cleaner'
 
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 #shoulda matchers config
 Shoulda::Matchers.configure do |config|
@@ -61,6 +61,9 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  # include the request helper module when testing a request
+  config.include RequestSpecHelper, type: :request
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
