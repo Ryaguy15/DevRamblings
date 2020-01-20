@@ -4,6 +4,9 @@ env:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 addons:
   postgresql: 9.6
+  
+before_install:
+  - gem install bundler
 before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres
@@ -19,6 +22,5 @@ language: ruby
 rvm:
   - 2.6.5
 script:
-  - gem install bundler --version 2.1.2
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rspec
