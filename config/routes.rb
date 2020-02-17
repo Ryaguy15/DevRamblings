@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   resources :blogs
 
   post 'auth/login', to: 'authentication#authenticate'
+  post '/signup', to: 'user#create'
 
 end

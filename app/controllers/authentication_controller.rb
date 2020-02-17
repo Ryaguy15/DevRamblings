@@ -1,4 +1,6 @@
 class AuthenticationController < ApiController
+  skip_before_action :authorize_request
+
 
   def authenticate
     auth_token = AuthenticateUser.new(auth_params[:email], auth_params[:password]).call
@@ -11,5 +13,4 @@ class AuthenticationController < ApiController
   def auth_params
     params.permit(:email, :password)
   end
-
 end

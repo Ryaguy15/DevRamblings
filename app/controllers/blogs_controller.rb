@@ -2,6 +2,8 @@ class BlogsController < ApiController
 
   before_action :set_blog, only: [:show, :update, :destroy]
 
+  skip_before_action :authorize_request, only: [:index, :show]
+
   def index
     @blogs = Blog.all
     json_response(@blogs)
