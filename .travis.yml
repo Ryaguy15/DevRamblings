@@ -8,6 +8,8 @@ addons:
 before_install:
   - gem install bundler
   - bundle install
+  - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+  - sudo apt-get install -y nodejs
   - yarn install
 before_script:
   - cp config/database.yml.travis config/database.yml
@@ -18,14 +20,11 @@ before_script:
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 dist: trusty
-sudo: false
+sudo: true
 cache: bundler
 language: ruby
 rvm:
   - 2.6.5
-language: node_js
-node_js:
-  - 10
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rspec
