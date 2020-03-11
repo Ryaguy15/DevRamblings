@@ -22,6 +22,9 @@ cache: bundler
 language: ruby
 rvm:
   - 2.6.5
+language: node_js
+node_js:
+  - 10
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rspec
