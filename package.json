@@ -1,16 +1,46 @@
 {
-  "name": "DevRamblings",
-  "private": true,
   "dependencies": {
-    "@rails/actioncable": "^6.0.0",
-    "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0",
+    "@babel/preset-react": "^7.8.3",
+    "@mdi/js": "4.7.95",
+    "@mdi/react": "1.2.1",
     "@rails/webpacker": "4.2.2",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "bulma": "~0.8.0",
+    "node-sass": "4.13.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-syntax-highlighter": "^12.2.1",
     "react_ujs": "^2.6.1",
-    "turbolinks": "^5.2.0"
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.8.3"
   },
-  "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.10.1"
+    "@babel/preset-typescript": "^7.8.3",
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/react-syntax-highlighter": "^11.0.4",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest": "^25.1.0",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "config/webpack/test.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/app/javascript/__mocks__/fileMock.js"
+    }
   }
 }

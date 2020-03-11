@@ -7,6 +7,7 @@ addons:
   
 before_install:
   - gem install bundler
+  - yarn install
 before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres
@@ -24,3 +25,4 @@ rvm:
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rspec
+  - yarn test

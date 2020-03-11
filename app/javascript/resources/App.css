@@ -1,0 +1,31 @@
+#editor-header {
+  border-radius: 15px 15px 0px 0px;
+  margin-top: 20px;
+  padding: 10px 5px;
+}
+
+#editor{
+  margin-right: 20px;
+}
+
+.closed:hover {
+  background-color: rgb(237, 237, 237);
+}
+
+.block-card {
+  margin-top: 10px;
+}
+
+  
+
+.ellipsis-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden ;
+  width: 50px;
+  display: block;
+}
+
+.code-text {
+  white-space: pre-wrap;
+}

@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :blogs
+  namespace :v1, defaults: {format: 'json'} do
+    resources :blogs
+    post 'auth/login', to: 'authentication#authenticate'
+    post '/signup', to: 'user#create'
+  end
 
-  post 'auth/login', to: 'authentication#authenticate'
-  post '/signup', to: 'user#create'
+
+
+
+  root 'home#index'
+
+  get '*page', to: 'home#index', constraints: ->(req) do
+    !req.xhr && req.format.html?
+  end
 
 end

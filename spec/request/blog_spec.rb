@@ -7,7 +7,7 @@ RSpec.describe 'Blogs Api', type: :request do
   let(:headers) { valid_headers }
 
   describe 'GET /blogs' do
-    before { get '/blogs'}
+    before { get '/v1/blogs'}
 
     it 'returns the blogs' do
       expect(json).not_to be_empty
@@ -21,7 +21,7 @@ RSpec.describe 'Blogs Api', type: :request do
 
   describe 'GET /blogs/:id' do
 
-    before { get "/blogs/#{blog_id}" }
+    before { get "/v1/blogs/#{blog_id}" }
 
     context 'When the blog exists' do
       it 'returns the blog' do
@@ -52,7 +52,7 @@ RSpec.describe 'Blogs Api', type: :request do
     let(:valid_attributes) { {title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph} }
 
     context 'When request is valid' do
-      before { post '/blogs', params: valid_attributes.to_json, headers: headers  }
+      before { post '/v1/blogs', params: valid_attributes.to_json, headers: headers  }
       it 'creates a blog' do
         expect(json['title']).to eq(valid_attributes[:title])
         expect(json['body']).to eq(valid_attributes[:body])
@@ -64,7 +64,7 @@ RSpec.describe 'Blogs Api', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/blogs', params: { title: 'Foobar' }.to_json, headers: headers }
+      before { post '/v1/blogs', params: { title: 'Foobar' }.to_json, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -80,7 +80,7 @@ RSpec.describe 'Blogs Api', type: :request do
     let(:valid_attributes) { { title: 'This is a cool blog' }.to_json }
 
     context 'When the record exists' do
-      before { put "/blogs/#{blog_id}", params: valid_attributes, headers: headers }
+      before { put "/v1/blogs/#{blog_id}", params: valid_attributes, headers: headers }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -94,7 +94,7 @@ RSpec.describe 'Blogs Api', type: :request do
 
   describe 'DELETE /blogs/:id' do
 
-    before { delete "/blogs/#{blog_id}", headers: headers}
+    before { delete "/v1/blogs/#{blog_id}", headers: headers}
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

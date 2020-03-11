@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe BlogsController, type: :controller do
+RSpec.describe V1::BlogsController, type: :controller do
 
 end

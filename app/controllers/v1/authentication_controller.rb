@@ -1,4 +1,4 @@
-class AuthenticationController < ApiController
+class V1::AuthenticationController < ApiController
   skip_before_action :authorize_request
 
 
