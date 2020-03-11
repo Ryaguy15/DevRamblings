@@ -7,6 +7,7 @@ addons:
   
 before_install:
   - gem install bundler
+  - bundle install
   - yarn install
 before_script:
   - cp config/database.yml.travis config/database.yml
