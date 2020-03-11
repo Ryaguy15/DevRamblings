@@ -8,8 +8,8 @@ addons:
 before_install:
   - gem install bundler
   - bundle install
-  - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-  - sudo apt-get install -y nodejs
+  - nvm install 10.16.3
+  - nvm use 10.16.3
   - yarn install
 before_script:
   - cp config/database.yml.travis config/database.yml
