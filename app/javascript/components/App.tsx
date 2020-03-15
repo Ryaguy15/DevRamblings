@@ -2,8 +2,7 @@ import React from 'react';
 import 'bulma';
 import '../resources/App.css';
 import {NavBar} from "./NavBar"
-import FeedContainer from "./feeds/FeedContainer"
-
+import LoginForm from './authforms/LoginForm'
 
 const App: React.FC = () => {
   return (
@@ -13,7 +12,7 @@ const App: React.FC = () => {
             Create
           </a>
         </NavBar>
-        <FeedContainer/>
+        <LoginForm/>
       </React.Fragment>)
 };
 
