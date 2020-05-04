@@ -1,16 +1,20 @@
 import React, {useState} from 'react';
-import icon from '../resources/Icon.svg'
+import LoginForm from './authforms/LoginForm';
+import icon from '../resources/Icon.svg';
 
 export const NavBar: React.FC = (props) => {
 
     let [menuClass, setMenuClass] = useState("");
     let [burgerClass, setBurgerClass] = useState("");
+    let [showModal, setShowModal] = useState(false);
 
     let hamburgerClicked = () => {
         let newCssClass = menuClass !== "" ? "" : "is-active";
         setBurgerClass(newCssClass);
         setMenuClass(newCssClass)
     };
+
+    let modalClass = showModal ? "is-active" : "";
 
     return (
         <nav className={'navbar'} role={'navigation'}>
@@ -37,7 +41,7 @@ export const NavBar: React.FC = (props) => {
                             <a className="button is-primary">
                                 <strong>Sign up</strong>
                             </a>
-                            <a className="button is-light">
+                            <a className="button is-light" onClick={e => setShowModal(true)}>
                                 Log in
                             </a>
                         </div>
@@ -45,6 +49,19 @@ export const NavBar: React.FC = (props) => {
                 </div>
             </div>
 
+            <div className={`modal ${modalClass}`}>
+                <div className="modal-background"></div>
+                <div className="modal-card">
+                    <header className="modal-card-head">
+                        <p className="modal-card-title">Login to DevRamblings</p>
+                        <button className="delete" aria-label="close" onClick={e => setShowModal(false)}>
+                        </button>
+                    </header>  
+                    <section className="modal-card-body">
+                        <LoginForm/>
+                    </section>              
+                </div> 
+            </div>
         </nav>
     )
 };

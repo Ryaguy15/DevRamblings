@@ -18,3 +18,18 @@ test("NavBar shows menu on mobile", () => {
     expect(wrapper.find(".is-active").length).toBe(2)
 
 });
+
+test("NavBar shows login form modal", () => {
+    const wrapper = shallow(<NavBar />);
+
+    // the modal should not have the is-active css class
+    expect(wrapper.find('.is-active').length).toBe(0);
+
+    // click on the login button
+    wrapper.find('.is-light').simulate("click")
+
+    // Check if the modal div now has the is-active class
+    expect(wrapper.find('.is-active').length).toBe(1);
+    expect(wrapper.find('.is-active').prop('className').split(" ")).toContain('modal')
+
+})
