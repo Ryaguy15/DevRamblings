@@ -48,21 +48,21 @@ class LoginForm extends React.Component<{}, LoginFormState> {
             </button>{this.state.error.message}</div>) 
             : null;
 
-
+        let errorFormClass = this.state.error.show ? "is-danger": "";
         return (
             <React.Fragment>
                 {errorMessage}
                 <div className="field">
                     <label className="label">Email</label>
                     <div className="control">
-                        <input className="input" type="email" placeholder="Enter your email"
+                        <input className={`input ${errorFormClass}`} type="email" placeholder="Enter your email"
                         onChange={ (e) => this.setState({email: e.target.value}) }/>
                     </div>
                 </div>
                 <div className="field">
                     <label className="label">Password</label>
                     <div className="control">
-                        <input className="input" type="password" placeholder="Enter your password" 
+                        <input className={`input ${errorFormClass}`} type="password" placeholder="Enter your password" 
                         onChange={ (e) => this.setState({password: e.target.value}) }/>
                     </div>
                 </div>

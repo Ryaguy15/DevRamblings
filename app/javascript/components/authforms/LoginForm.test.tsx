@@ -30,12 +30,17 @@ test("It shows the error notification with incorrect auth", (done) => {
 
     // enter in some fake credentials
     wrapper.find("input").at(0).simulate('change',  {target: {value: "test@email.com"}});
-    wrapper.find("input").at(0).simulate('change', {target: {value: "password"}});
+    wrapper.find("input").at(1).simulate('change', {target: {value: "password"}});
 
     const didSumitForm = wrapper.instance().submitForm();
     didSumitForm.then(() => {
         wrapper.update();
         expect(wrapper.text()).toMatch(/Invalid Credentials/)
+        
+        // the forms should also show red as well
+        expect(wrapper.find("input").at(0).prop('className').split(" ")).toContain("is-danger")
+        expect(wrapper.find("input").at(1).prop('className').split(" ")).toContain("is-danger") 
+
         fetch.mockClear()
         done();
     });

@@ -2,7 +2,7 @@ import React from 'react';
 import 'bulma';
 import '../resources/App.css';
 import {NavBar} from "./NavBar"
-import LoginForm from './authforms/LoginForm'
+import SignUpForm from "./authforms/SignUpForm";
 
 const App: React.FC = () => {
   return (
@@ -12,7 +12,7 @@ const App: React.FC = () => {
             Create
           </a>
         </NavBar>
-        <LoginForm/>
+        <SignUpForm />
       </React.Fragment>)
 };
 
