@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from "react-redux";
+import { addToken } from "../../redux/actions";
+import { LoginFormProps } from './LoginForm';
 
 interface SignUpFormState  {
     name: string,
@@ -8,9 +11,9 @@ interface SignUpFormState  {
     error: {message: string, show: boolean}
 }
 
-class SignUpForm extends React.Component<{}, SignUpFormState> {
-   
-    constructor(props: Readonly<{}>) {
+
+export class SignUpForm extends React.Component<LoginFormProps, SignUpFormState> {
+    constructor(props: Readonly<LoginFormProps>) {
         super(props);
         this.state = {
             name: "",
@@ -31,7 +34,7 @@ class SignUpForm extends React.Component<{}, SignUpFormState> {
             return;
         }
 
-        let response = await fetch("signup", {
+        let response = await fetch("v1/signup", {
             method: "POST",
             body: JSON.stringify({
                 name: name, 
@@ -46,11 +49,12 @@ class SignUpForm extends React.Component<{}, SignUpFormState> {
 
         let jsonResponse = await response.json();
         if (response.ok) {
-
+            this.props.addToken(jsonResponse.auth_token);
+            this.props.onSuccess();
         }
         else {
             let message = jsonResponse.message;
-            this.setState({error: {message: message, show: true}})
+            this.setState({error: {message: message, show: true}});
         }
     }
 
@@ -83,14 +87,14 @@ class SignUpForm extends React.Component<{}, SignUpFormState> {
                 <label className="label">Password</label>
                 <div className="control">
                     <input className="input" type="password" placeholder="Enter your password"
-                        onChange={e => this.setState({"password": e.target.value})} />
+                        onChange={e => this.setState({"password": e.target.value})} required />
                 </div>
             </div>
             <div className="field">
                 <label className="label">Password Confirmation</label>
                 <div className="control">
                     <input className="input" type="password" placeholder="Enter your password again"
-                        onChange={e => this.setState({"password_conf": e.target.value})} />
+                        onChange={e => this.setState({"password_conf": e.target.value})} required />
                 </div>
             </div>
             <button className={'button'} onClick={this.submitForm}>Create Account</button>
@@ -99,4 +103,9 @@ class SignUpForm extends React.Component<{}, SignUpFormState> {
     }
 }
 
-export default SignUpForm;
+const MapDispatchToProps = dispatch => ({
+    addToken: (token: string) => dispatch(addToken(token))
+})
+
+export default connect(null, MapDispatchToProps)(SignUpForm);
+

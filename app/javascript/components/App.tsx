@@ -1,19 +1,21 @@
 import React from 'react';
 import 'bulma';
 import '../resources/App.css';
-import {NavBar} from "./NavBar"
+import {Provider} from 'react-redux';
+import store from '../redux/store'
+import NavBar from "./NavBar"
 import SignUpForm from "./authforms/SignUpForm";
 
 const App: React.FC = () => {
   return (
-      <React.Fragment>
+      <Provider store={store}>
         <NavBar>
           <a className={"navbar-item"}>
             Create
           </a>
         </NavBar>
         <SignUpForm />
-      </React.Fragment>)
+      </Provider>)
 };
 
 export default App;

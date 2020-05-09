@@ -1,8 +1,13 @@
 import React, {useState} from 'react';
 import LoginForm from './authforms/LoginForm';
 import icon from '../resources/Icon.svg';
+import {getIsUserLoggedIn} from '../redux/selectors'
+import { connect } from 'react-redux';
 
-export const NavBar: React.FC = (props) => {
+interface NavBarProps {
+    isLoggedIn: boolean
+}
+export const NavBar: React.FC<NavBarProps> = (props) => {
 
     let [menuClass, setMenuClass] = useState("");
     let [burgerClass, setBurgerClass] = useState("");
@@ -41,9 +46,13 @@ export const NavBar: React.FC = (props) => {
                             <a className="button is-primary">
                                 <strong>Sign up</strong>
                             </a>
-                            <a className="button is-light" onClick={e => setShowModal(true)}>
-                                Log in
-                            </a>
+                            { props.isLoggedIn ?
+                                <a className="button is-light"> Logout </a>    
+                                :
+                                <a className="button is-light" onClick={e => setShowModal(true)}>
+                                    Log in
+                                </a>
+                            }   
                         </div>
                     </div>
                 </div>
@@ -58,10 +67,17 @@ export const NavBar: React.FC = (props) => {
                         </button>
                     </header>  
                     <section className="modal-card-body">
-                        <LoginForm/>
+                        <LoginForm onSuccess={ () => setShowModal(false) }/>
                     </section>              
                 </div> 
             </div>
         </nav>
     )
 };
+
+const MapStateToProps = (state) => (
+    {
+        isLoggedIn: getIsUserLoggedIn(state)
+    })
+
+export default connect(MapStateToProps)(NavBar);

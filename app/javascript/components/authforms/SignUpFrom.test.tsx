@@ -1,7 +1,7 @@
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
-import SignUpForm from './SignUpForm'
+import {SignUpForm} from './SignUpForm'
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -12,7 +12,7 @@ beforeAll(() => {
 
 let wrapper;
 beforeEach(() => {
-    wrapper = shallow(<SignUpForm />, { disableLifecycleMethods: true });
+    wrapper = shallow(<SignUpForm addToken={() => {}}/>, { disableLifecycleMethods: true });
  });
 
  afterEach(() => {
@@ -61,3 +61,30 @@ beforeEach(() => {
         done()
     });
  });
+
+
+ test("It adds the token to the store", (done) => {
+    fetch.mockImplementation(() => Promise.resolve({ok: true, json: () => 
+        Promise.resolve({auth_token: "This is my token"})
+    })
+    );
+
+    const onSuccess = jest.fn();
+    const addToken = jest.fn((token) => {
+        expect(token).toBe('This is my token');
+    })
+
+
+    let wrapper = shallow(<SignUpForm addToken={addToken} onSuccess={onSuccess}/>);
+    // enter in some fake credentials
+    wrapper.find("input").at(0).simulate('change',  {target: {value: "test@email.com"}});
+    wrapper.find("input").at(1).simulate('change', {target: {value: "password"}});
+    const didSubmitForm = wrapper.instance().submitForm();
+
+    didSubmitForm.then(() => {
+        wrapper.update()
+        expect(addToken).toBeCalled(); 
+        expect(onSuccess).toBeCalled();
+        done();
+    })
+ })

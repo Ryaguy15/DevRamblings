@@ -1,5 +1,6 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { connect } from 'react-redux';
+import { addToken } from '../../redux/actions';
 
 interface LoginFormState {
     email: string,
@@ -7,8 +8,16 @@ interface LoginFormState {
     error: {message: string, show: boolean}
 }
 
-class LoginForm extends React.Component<{}, LoginFormState> {
-    constructor(props) {
+interface FormProps {
+    onSuccess?: () => void
+}
+
+export interface LoginFormProps extends FormProps {
+    addToken: (token: string) => void
+}
+
+export class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
+    constructor(props: Readonly<LoginFormProps>) {
         super(props);
         this.state = {
             email: "",
@@ -21,7 +30,6 @@ class LoginForm extends React.Component<{}, LoginFormState> {
 
 
     async submitForm() {
-        console.log("You called submit form")
         let response = await fetch("v1/auth/login", {
             method: 'POST',
             body: JSON.stringify({email: this.state.email, password: this.state.password}),
@@ -31,7 +39,8 @@ class LoginForm extends React.Component<{}, LoginFormState> {
         });
         let jsonResponse = await response.json();
         if (response.ok) {
-            // save auth token
+            this.props.addToken(jsonResponse.auth_token);
+            this.props.onSuccess()
         }
         else {
            this.setState({
@@ -76,4 +85,8 @@ class LoginForm extends React.Component<{}, LoginFormState> {
     }
 }
 
-export default LoginForm;
+const MapDispatchToProps = dispatch => ({ 
+    addToken: (token: string) => dispatch(addToken(token))
+});
+
+export default connect(null, MapDispatchToProps)(LoginForm);
