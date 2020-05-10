@@ -6,6 +6,6 @@ export const addToken = (content:string) => ({
     payload: { token: content }
 });
 
-export const removeToken = content => ({
+export const removeToken = () => ({
     type: REMOVE_TOKEN
 });

@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom'
 import LoginForm from './authforms/LoginForm';
 import icon from '../resources/Icon.svg';
 import {getIsUserLoggedIn} from '../redux/selectors'
 import { connect } from 'react-redux';
+import {removeToken} from '../redux/actions'
 
 interface NavBarProps {
-    isLoggedIn: boolean
+    isLoggedIn: boolean,
+    logout: () => void
 }
 export const NavBar: React.FC<NavBarProps> = (props) => {
 
@@ -43,15 +46,17 @@ export const NavBar: React.FC<NavBarProps> = (props) => {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
-                            <a className="button is-primary">
-                                <strong>Sign up</strong>
-                            </a>
                             { props.isLoggedIn ?
-                                <a className="button is-light"> Logout </a>    
+                                <a className="button is-light" onClick={e => props.logout()}> Logout </a>    
                                 :
+                                <>
+                                <Link to={'/register'} className="button is-primary">
+                                    <strong>Sign up</strong>
+                                </Link>
                                 <a className="button is-light" onClick={e => setShowModal(true)}>
                                     Log in
                                 </a>
+                                </>
                             }   
                         </div>
                     </div>
@@ -80,4 +85,8 @@ const MapStateToProps = (state) => (
         isLoggedIn: getIsUserLoggedIn(state)
     })
 
-export default connect(MapStateToProps)(NavBar);
+const MapDispatchToProps = (dispatch) => ({
+    logout: () => dispatch(removeToken())
+})
+
+export default connect(MapStateToProps, MapDispatchToProps)(NavBar);
