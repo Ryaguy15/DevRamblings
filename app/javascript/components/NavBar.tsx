@@ -27,10 +27,10 @@ export const NavBar: React.FC<NavBarProps> = (props) => {
     return (
         <nav className={'navbar'} role={'navigation'}>
             <div className={'navbar-brand'}>
-                <a className={'navbar-item '} href={"/"}>
+                <Link className={'navbar-item '} to={"/"}>
                     <img src={icon} alt={"DevRamblings Logo"}/>
                     DevRamblings
-                </a>
+                </Link>
                 <a role="button" className={"navbar-burger burger " + burgerClass} aria-label="menu" aria-expanded="false"
                    data-target="navbarMenu" onClick={hamburgerClicked}>
                     <span aria-hidden="true"></span>

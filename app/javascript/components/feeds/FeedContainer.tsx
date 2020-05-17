@@ -25,7 +25,6 @@ class FeedContainer extends React.Component<{}, FeedState> {
         let response = await fetch("/v1/blogs");
         if (response.ok) {
             let feedJson = await response.json();
-            console.log(response.ok)
             this.setState({feed: feedJson})
         }
         else this.setState({error: true})
