@@ -11,7 +11,7 @@ module V1
     end
 
     def create
-      @blog = Blog.create!(blog_params)
+      @blog = Blog.create!(blog_params, user_id: @current_user.id)
       json_response(@blog, :created)
     end
 
