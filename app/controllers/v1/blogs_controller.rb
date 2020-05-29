@@ -11,7 +11,7 @@ module V1
     end
 
     def create
-      @blog = Blog.create!(blog_params, user_id: @current_user.id)
+      @blog = Blog.create!(blog_params)
       json_response(@blog, :created)
     end
 
@@ -32,7 +32,10 @@ module V1
     private
 
     def blog_params
-      params.permit(:title, :body)
+      id = @current_user.id
+      blog_params = params.permit(:title, :body)
+      blog_params[:user_id] = id
+      blog_params
     end
 
     def set_blog
