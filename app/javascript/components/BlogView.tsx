@@ -1,9 +1,10 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {WithRouterProps} from '../utils/types';
+import BlogPreview from './BlogPreview';
 
 interface BlogViewState {
-    blog?: {title: string, body: string, created_at: string}
+    blog?: {title: string, body: {id: string, type: string, value: string}[], created_at: string}
 }
 
 class BlogView extends React.Component<WithRouterProps, BlogViewState> {
@@ -16,7 +17,8 @@ class BlogView extends React.Component<WithRouterProps, BlogViewState> {
         const {id} = this.props.match.params;
         const response = await fetch(`/v1/blogs/${id}`);
         if (response.ok) {
-            const blogData = await response.json();
+            let blogData = await response.json();
+            blogData.body = JSON.parse(blogData.body);
             this.setState({blog: blogData});
         }
     }
@@ -25,10 +27,9 @@ class BlogView extends React.Component<WithRouterProps, BlogViewState> {
         if (this.state.blog === undefined) return <h1>There is nothing here!</h1>
         const blog = this.state.blog;
         return (
-            <>
-            <h1>{blog.title}</h1>
-            <small>{new Date(blog.created_at).toDateString()}</small>
-            </>
+            <BlogPreview title={blog.title} blocks={blog.body}>
+                <small>{new Date(blog.created_at).toDateString()}</small>
+            </BlogPreview>
         )
     }
 }

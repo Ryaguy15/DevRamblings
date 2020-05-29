@@ -28,6 +28,8 @@ class BlogPreview extends React.Component<PreviewProps, {}> {
        return (
            <div className={'content'}>
             <h1>{this.props.title}</h1>
+            {this.props.children}
+            <br/>
             {blockPreviews}
            </div>
        )
